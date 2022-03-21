@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <!--<bean id="proxyUserDao" class="com.ljm.bean.ProxyBeanFactory"/>
+
+    <bean id="userService" class="com.ljm.bean.UserService" scope="prototype">
+        <property name="uid" value="10001"/>
+        <property name="userDao" ref="proxyUserDao"/>
+        <property name="company" value="腾讯"/>
+        <property name="location" value="深圳"/>
+    </bean>
+-->
+  <!--  <bean class="com.ljm.bean.event.ContextRefreshedEventListener"/>
+    <bean class="com.ljm.bean.event.CustomEventListener"/>
+    <bean class="com.ljm.bean.event.ContextRefreshedEventListener"/>-->
+    <!--<bean id="userService" class="com.ljm.bean.UserService2">
+
+    </bean>-->
+    <bean id="userService" class="com.ljm.bean.UserService3"/>
+
+    <bean class="com.ljm.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="beforeAdvice" class="com.ljm.bean.UserServiceBeforeAdvice"/>
+
+    <bean id="methodInterceptor" class="com.ljm.aop.framework.adapter.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="beforeAdvice"/>
+    </bean>
+
+    <bean id="pointcutAdvisor" class="com.ljm.aop.aspectj.AspectjExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* com.ljm.bean.IUserService.*(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
+</beans>
